@@ -26,7 +26,12 @@ var hashFunctions = {
 
 function toggleExpand(expandRef) {
   var targetElement = document.querySelector("#additional-" + expandRef);
-  targetElement.style.display === "block" ? targetElement.style.display = "none" : targetElement.style.display = "block";
+  if (targetElement.classList.contains("company-list__detail--show-additional")){
+    targetElement.classList.remove("company-list__detail--show-additional");
+  } else {
+    targetElement.classList.add("company-list__detail--show-additional");
+  }
+
 }
 
 

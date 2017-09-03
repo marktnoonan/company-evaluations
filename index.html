@@ -17,9 +17,6 @@
   <main>
     <div class="list-wrapper">
       <div id="list"></div>
-      <div class="add-company">
-        Add Company
-      </div>
     </div>
 
     <div class="detail-wrapper">
@@ -45,7 +42,7 @@
           </div>
           <h3 class="company-list__label">Summary</h3>
           <span class="company-list__detail company-list__detail--top">
-            Founded {{foundedYear}}. {{pretty-employeeCount}} Employees. <br>
+            Founded in {{foundedYear}}. {{pretty-employeeCount}} Employees. <br>
             Notes: "{{notes}}"
           </span>
           <div class="expand">
@@ -74,58 +71,87 @@
   <script id="detail-template" type="text/x-handlebars-template">
     <section class="detail">
       <header>
-        <h1 class="main-header__title">Detail for {{companyName}} in {{location}}</h1>
+        <h1 class="main-header__title">Detail for "{{companyName}}" in {{location}}</h1>
       </header>
-      <div class="details-table-group">
-        <table summary="Details about {{companyName}}">
-          <caption>Details about business</caption>
-          <thead>
-            <tr>
-              <th scope="col">Financials <br>(last year)</th>
-              <th scope="col"></th>
-              <th scope="col">General <br>Information</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Earnings</th>
-              <td>${{pretty-lastYearEarnings}}</td>
-              <th scope="row">Profitable</th>
-              <td>{{profitable}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Expenses</th>
-              <td>${{pretty-lastYearExpenses}}</td>
-              <th scope="row">Debt Ratio</th>
-              <td>{{debtRatio}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Profit</th>
-              <td>${{pretty-lastYearProfit}}</td>
-              <th scope="row">Source of Financials</th>
-              <td>{{financialInfoSource}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Assets</th>
-              <td>${{pretty-totalAssets}}</td>
-              <th scope="row">Employees</th>
-              <td>{{employeeCount}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Liabilities</th>
-              <td>${{pretty-liabilities}}</td>
-              <th scope="row">Position</th>
-              <td>{{targetPosition}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row" colspan="2">Total albums</th>
-              <td colspan="2">77</td>
-            </tr>
-          </tfoot>
-        </table>
+        <div class="company-full">
+          <div class="company-full__item">
+            <h3 class="company-list__label">Main Contact</h3>
+            <div class="company-list__detail company-list__detail--contact">
+              <div class="profile-pic"></div>
+              {{targetMainContact.name}}<br> {{targetMainContact.email}}
+              <br> {{targetMainContact.phone}}
+            </div>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Next task</h3>
+            <span class="company-list__detail">Deadline: {{nextTask.deadline}}</span><br>
+            <span class="company-list__detail">Task: {{nextTask.task}}</span>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Priority Level</h3>
+            <span class="company-detail">{{urgency}}</span>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Last Activity</h3>
+            <span class="company-detail">{{lastActivity.date}}</span><br>
+            <span class="company-detail">{{lastActivity.activity}}</span>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Primary Interest</h3>
+            <span class="company-detail">{{primaryInterest}}</span>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Internal Lead</h3>
+            <span class="company-detail">{{internalLead}}</span>
+          </div>
+          <div class="company-full__item">
+            <h3 class="company-list__label">Notes</h3>
+            <span class="company-detail">{{notes}}</span>
+          </div>
+        </div>
+        <div class="details-table-group">
+          <table summary="Details about {{companyName}}" class="details-table">
+            <thead>
+              <tr>
+                <th scope="col" colspan="2">Financials (last year)</th>
+                <th scope="col" colspan="2">General Information</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Earnings</th>
+                <td>${{pretty-lastYearEarnings}}</td>
+                <th scope="row">Profitable</th>
+                <td><img src="assets/icons/{{profitable}}.svg" /></td>
+              </tr>
+              <tr>
+                <th scope="row">Expenses</th>
+                <td>${{pretty-lastYearExpenses}}</td>
+                <th scope="row">Debt Ratio</th>
+                <td>{{debtRatio}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Profit</th>
+                <td>${{pretty-lastYearProfit}}</td>
+                <th scope="row">Source of Financials</th>
+                <td>{{financialInfoSource}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Assets</th>
+                <td>${{pretty-totalAssets}}</td>
+                <th scope="row">Employees</th>
+                <td>{{employeeCount}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Liabilities</th>
+                <td>${{pretty-liabilities}}</td>
+                <th scope="row">Position</th>
+                <td>{{targetPosition}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </section>
   </script>

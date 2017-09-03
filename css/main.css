@@ -33,8 +33,9 @@ main {
   padding: 10px;
   margin-bottom: 10px;
   width: 300px;
-  display: block;
+  display: inline-block;
   font-size: 14px;
+  vertical-align: top;
 }
 
 .company-list__name {
@@ -66,8 +67,24 @@ main {
 }
 
 .company-list__detail--additional {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  padding: inherit;
+  left: 0;
+  background: #D1E1D8;
+  z-index: 100;
+  width: 283px;
+  border-radius: inherit;
+  transition: opacity 100ms ease-in-out;
 }
+
+.company-list__detail--show-additional {
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 100ms ease-in-out;
+}
+
 
 .company-list__detail--top {}
 
@@ -107,6 +124,7 @@ main {
 }
 
 .detail-wrapper {
+  text-align: center;
   display: block;
   position: absolute;
   margin: 0;
@@ -119,7 +137,7 @@ main {
   width: 100%;
   min-height: 100vh;
   text-align: center;
-  z-index: 100;
+  z-index: 200;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -143,14 +161,25 @@ main {
 
 }
 
-.details-table-group {
-  margin-top: 10px;
+.detail {
+  text-align: center;
 }
 
-table {
+.details-table-group {
+  max-width: 500px;
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  float: left;
+  margin: 10px;
+}
+
+.details-table {
+  width: 500px;
   border-collapse: collapse;
   text-align: left;
-  border: 1px solid rgba(0,0,0,0.4);
 }
 
 th, td {
@@ -162,11 +191,7 @@ th {
 }
 
 td {
-  border-right: 1px solid rgba(0,0,0,0.4);
-}
-
-thead th, tfoot th {
-  font-weight: bold;
+  text-align: center;
 }
 
 tbody tr:nth-child(odd) {
@@ -184,4 +209,23 @@ tbody tr:nth-child(even) {
   margin-top: 5px;
   border-radius: 4px;
   padding: 3px 0;
+}
+
+.company-full{
+  max-width: 500px;
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  float: left;
+  margin: 10px
+}
+
+.company-full__item{
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  margin: 10px;
+  min-width: 180px;
 }
