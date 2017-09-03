@@ -1,1 +1,1 @@
-console.log("I'm here");
+console.log(targets[0].companyName);
