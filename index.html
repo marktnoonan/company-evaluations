@@ -4,11 +4,13 @@
 <head>
   <meta charset="utf-8">
   <title>Pipleline Viewer</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-  <header>
-    <h1> Pipleline viewer </h1>
+  <header class="main-header">
+    <h1 class="main-header__title"> Pipleline viewer </h1>
   </header>
 
   <div id="list-container"></div>
@@ -17,10 +19,18 @@
 
 
   <script id="list-template" type="text/x-handlebars-template">
+    <ul class="company-list">
     {{#each targets}}
-      Company Name: {{companyName}}
+      <li id="company{{uid}}" class="company-list__item">
+      <h2 class="company-name">{{companyName}}</h2>
+      <span class="company-detail">Status: {{status}}</span> | <span class="company-detail">Priority level: {{urgency}}</span><br>
+      <span class="company-detail">Founded {{foundedYear}}</span>,
+      <span class="company-detail">{{employeeCount}} Employees</span><br>
+      <span class="company-detail">Next task: {{nextTask.task}}, due {{nextTask.deadline}}.</span>
+      </li>
     {{/each}}
-    <hr>
+  </ul>
+
   </script>
 
   <script id="card-template" type="text/x-handlebars-template">
