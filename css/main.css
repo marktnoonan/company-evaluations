@@ -7,13 +7,6 @@ body{
   margin: 20px
 }
 
-.company-list__item {
-  padding: 20px;
-  border: 1px solid #777;
-  margin-bottom: 30px
-}
-
-
 .main-header {
   text-align: center;
 }
@@ -25,7 +18,48 @@ body{
   display: inline-block;
 }
 
-.company-name{
+.list-wrapper {
+  float:left;
+}
+
+.company-list__item {
+  padding: 10px;
+  border: 1px solid #777;
+  margin-bottom: 30px;
+  width: 300px;
+  display: block;
+  font-size: 14px;
+}
+
+.company-list__name{
   font-size: 20px;
   font-weight: bold;
+}
+
+.company-list__detail{
+
+}
+
+.add-company {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #777;
+  margin-bottom: 30px;
+  font-size: 20px;
+  text-align: center;
+  width: 300px;
+}
+
+.detail-wrapper {
+  margin: 20px;
+  overflow: auto;
+  padding: 20px;
+  height: 100%;
+  min-width: 300px;
+}
+
+.detail-container {
+  border: 1px solid #777;
+  padding: 10px;
+  height: 100%;
 }

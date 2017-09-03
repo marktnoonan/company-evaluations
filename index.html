@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pipleline Viewer</title>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/main.css">
@@ -13,31 +14,46 @@
     <h1 class="main-header__title"> Pipleline viewer </h1>
   </header>
 
-  <div id="list-container"></div>
-  <div id="card-container"></div>
-  <div id="view-container"></div>
+  <main>
+    <div class="list-wrapper">
+      <div id="list"></div>
+      <div class="add-company">
+        Add Company
+      </div>
+    </div>
+
+    <div class="detail-wrapper">
+      <div id="detail-container" class="detail-container">
+
+      </div>
+
+    </div>
+
+  </main>
 
 
   <script id="list-template" type="text/x-handlebars-template">
     <ul class="company-list">
-    {{#each targets}}
-      <li id="company{{uid}}" class="company-list__item">
-      <h2 class="company-name">{{companyName}}</h2>
-      <span class="company-detail">Status: {{status}}</span> | <span class="company-detail">Priority level: {{urgency}}</span><br>
-      <span class="company-detail">Founded {{foundedYear}}</span>,
-      <span class="company-detail">{{employeeCount}} Employees</span><br>
-      <span class="company-detail">Next task: {{nextTask.task}}, due {{nextTask.deadline}}.</span>
+      {{#each targets}}
+      <li class="company-list__item">
+        <h2 class="company-list__name">{{companyName}}</h2>
+        <span class="company-list__detail">Status: {{status}}</span> | <span class="company-detail">Priority level: {{urgency}}</span><br>
+        <span class="company-list__detail">Founded {{foundedYear}}</span>,
+        <span class="company-list__detail">{{employeeCount}} Employees</span><br>
+        <span class="company-list__detail">Next task: {{nextTask.task}}, due {{nextTask.deadline}}.</span>
       </li>
-    {{/each}}
-  </ul>
+      {{/each}}
+    </ul>
 
   </script>
 
-  <script id="card-template" type="text/x-handlebars-template">
+  <script id="detail-template" type="text/x-handlebars-template">
+    <div class="detail">
+      Detail for {{companyName}}.<br>
+      UID: {{uid}}
+    </div>
   </script>
 
-  <script id="full-template" type="text/x-handlebars-template">
-  </script>
 
   <script src="js/handlebars.min.js" charset="utf-8"></script>
   <script src="js/model.js" charset="utf-8"></script>
