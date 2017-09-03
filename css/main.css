@@ -76,13 +76,13 @@ main {
   z-index: 100;
   width: 283px;
   border-radius: inherit;
-  transition: opacity 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
 }
 
 .company-list__detail--show-additional {
   opacity: 1;
   pointer-events: all;
-  transition: opacity 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
 }
 
 
@@ -111,16 +111,6 @@ main {
   margin-right: 5px;
   background-image: url("../assets/user.svg");
   background-size: cover;
-}
-
-.add-company {
-  margin: 20px;
-  padding: 10px;
-  border: 1px solid #777;
-  margin-bottom: 30px;
-  font-size: 20px;
-  text-align: center;
-  width: 300px;
 }
 
 .detail-wrapper {
