@@ -36,6 +36,8 @@ Things I want to track about targets in order to remind me of how we feel about 
 
 (let's not obsess over these - keep math simple but focus on TYPES of data, and start small)
 
+*** Should be very clear about editing - some data is only consumed in this part of the site and wouldn't be editable.
+
 Financials: Earnings last year, costs last year, profit or loss last year, value of assets, value of liabilities.
   - From this we calculate: Boolean for profitable or not. Ratio of assets to liabilities expressed as gearing/leverage.
 Reliability of financials: Audited || Reported by company || Inferred from other information.
@@ -47,9 +49,16 @@ Pipeline info
 Status (e.g., researching, pending approval, approved, declined)
 Maybe between researching and pending approval there is another status that contains a few points to be checked off before submission for approval?
 Company public status: actively seeking buyers || not officially on market
+Our status: Offer ready, offer made, negotiations ongoing.
 
-Next task: description and deadline.
+Next task: description and deadline. - expanding points to CRM. Cannot edit here. May sort by this.
 
+Most recent activity: description and date. - expanding points to CRM. Cannot edit here. May sort by this.
+
+Our Main interest: product || employees || physical assets || digital assets || other
+Our urgency: low || normal || high - totally arbitrary internal thing that might as well be there.
+
+Internal lead: Person who owns this from our side.
 
 ---
 Things I want to show as a developer
@@ -57,6 +66,7 @@ Things I want to show as a developer
 Context for React/Vue etc even if I'm not using them.
 Probably can at least make a nod to BEM for the CSS.
 Show some consideration for the developer coming behind me.
+Semantic HTML5
 
 ---
 Ways to make life easy for the user
