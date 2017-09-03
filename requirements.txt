@@ -10,7 +10,7 @@ Create a new target
 Delete a target
 
 Assumptions:
-Use a modern JavaScript framework (e.g., React, Angular)
+Use a modern JavaScript framework (e.g., React, Angular) - Handlebars OK per Adam
 Data does not need to be persisted (use mock data)
 
 Examples of data to be captured:
@@ -25,11 +25,61 @@ User Stories
 
 As a user, I can view a list of targets to assess status at a glance.
 As a user, I can view some extra details about a target with one click to gain more granular information.
-As a user, I can view the entire record for a target at this point in the pipeline.
+As a user, I can view the entire record for a target at this point in the pipeline. Not everything is editable. Only what makes sense to edit.
 As a user, I can edit an existing target to provide updated information or fill in blanks.
 As a user, I can create a new target to add to the list.
 As a user, I can delete a target from the list.
 
 ---
+Things I want to track about targets in order to remind me of how we feel about them.
 
-Things I want to track about targets:
+(let's not obsess over these - keep math simple but focus on TYPES of data, and start small)
+
+Financials: Earnings last year, costs last year, profit or loss last year, value of assets, value of liabilities.
+  - From this we calculate: Boolean for profitable or not. Ratio of assets to liabilities expressed as gearing/leverage.
+Reliability of financials: Audited || Reported by company || Inferred from other information.
+  - both of these contribute to overall impression of health of the business.
+Basic company info: Location, when founded, number of employees, product(s) we are interested in.
+Company info related to acquisition: important contact people, phone numbers etc. - Maybe it links to a fictional CRM for full details.
+
+Pipeline info
+Status (e.g., researching, pending approval, approved, declined)
+Maybe between researching and pending approval there is another status that contains a few points to be checked off before submission for approval?
+Company public status: actively seeking buyers || not officially on market
+
+Next task: description and deadline.
+
+
+---
+Things I want to show as a developer
+
+Context for React/Vue etc even if I'm not using them.
+Probably can at least make a nod to BEM for the CSS.
+Show some consideration for the developer coming behind me.
+
+---
+Ways to make life easy for the user
+
+Obvious how to edit and what can be edited.
+Obvious how to add and delete.
+Confirm before destructive action.
+Provide undo button for destructive actions.
+List view provides status and other metrics calculated from full data, is not editable directly.
+Clicking edit on a field in list or card view opens the full view and focuses the field they clicked. (turn editing.onFor(this))
+On full view, explicitly link various metrics to how the appear in the list and card views.
+Provide some sorting criteria for list view.
+Don't break browser norms like back button.
+Use local storage to be forgiving of page refreshes.
+
+---
+Ways to make life easier for the next developer
+
+Sensible templates.
+Separate business logic from presentation logic. (create and manage the right object in one place, pass the object to a template to be rendered)
+Comment tricky things.
+Consider structure, number of lines/files, potential build pipelines.
+Remember this is development code that will have to be debugged, some global vars are useful for debugging but point out how eventually it will all run in an IIFE to mitigate scope clashes.
+Clarity of intention.
+Most straightforward flow of data. Follow react-style principles of one way data flow even though not enforced by framework.
+Think in terms of reusable components. If handlebars is clunky, maybe ES6 template literals will be easier and feel a little more react-like.
+Let's make it easy to add and change stuff.
