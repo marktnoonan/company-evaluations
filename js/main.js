@@ -1,1 +1,3 @@
-console.log(targets[0].companyName);
+targets.forEach(function (target) {
+console.log(target.companyName);
+});
