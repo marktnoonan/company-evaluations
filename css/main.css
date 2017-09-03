@@ -1,6 +1,12 @@
 body{
   font-family: sans-serif;
   line-height: 1.2;
+  height: 100vh;
+  background-color: #A4C3B2;
+}
+
+main {
+  height: 100%;
 }
 
 .company-list {
@@ -24,8 +30,7 @@ body{
 
 .company-list__item {
   padding: 10px;
-  border: 1px solid #777;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   width: 300px;
   display: block;
   font-size: 14px;
@@ -34,10 +39,53 @@ body{
 .company-list__name{
   font-size: 20px;
   font-weight: bold;
+  display: inline-block;
 }
 
-.company-list__detail{
+.company-list__detail {
+}
 
+.company-list__status {
+  background-color: #06070E;
+      display: inline-block;
+      font-size: 12px;
+      padding: 3px 4px;
+      border-radius: 5px;
+      transform: translateY(-4px);
+}
+
+.company-list__label {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+.company-list__detail--contact {
+  min-height: 52px;
+}
+
+.company-list__detail--additional{
+  display: none;
+}
+
+.company-list__detail--top {
+
+}
+
+.li-body {
+  background-color: rgba(255,255,255,0.5);
+  padding: 1px 10px 6px 7px;
+  margin-top: 4px;
+  border-radius: 4px;
+}
+
+.profile-pic {
+  display: inline-block;
+  float:left;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #444;
+  margin-right: 5px;
 }
 
 .add-company {
@@ -61,5 +109,15 @@ body{
 .detail-container {
   border: 1px solid #777;
   padding: 10px;
-  height: 100%;
+  height: calc(100% - 150px);
+}
+
+.expand {
+  background-color: rgba(255,255,255, 0.7);
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
+  border-radius: 4px;
+  padding: 3px 0;
 }

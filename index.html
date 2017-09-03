@@ -11,7 +11,7 @@
 
 <body>
   <header class="main-header">
-    <h1 class="main-header__title"> Pipleline viewer </h1>
+    <h1 class="main-header__title"> Pipeline Viewer </h1>
   </header>
 
   <main>
@@ -34,13 +34,34 @@
 
   <script id="list-template" type="text/x-handlebars-template">
     <ul class="company-list">
-      {{#each targets}}
-      <li class="company-list__item">
+      {{#each processedTargets}}
+      <li class="company-list__item" id="{{@index}}">
         <h2 class="company-list__name">{{companyName}}</h2>
-        <span class="company-list__detail">Status: {{status}}</span> | <span class="company-detail">Priority level: {{urgency}}</span><br>
-        <span class="company-list__detail">Founded {{foundedYear}}</span>,
-        <span class="company-list__detail">{{employeeCount}} Employees</span><br>
-        <span class="company-list__detail">Next task: {{nextTask.task}}, due {{nextTask.deadline}}.</span>
+        <span class="company-list__status" style="color: {{statusColor}}">{{status}}</span><br>
+        <div class="li-body">
+          <h3 class="company-list__label">Summary</h3>
+          <span class="company-list__detail company-list__detail--top">
+            Founded {{foundedYear}}. {{pretty-employeeCount}} Employees. <br>
+            Notes: "{{notes}}"
+          </span>
+          <div class="expand">
+            Show/Hide Details
+          </div>
+
+          <div class="company-list__detail--additional" id="additional-{{@index}}">
+            <h3 class="company-list__label">Main Contact</h3>
+            <div class="company-list__detail company-list__detail--contact">
+              <div class="profile-pic"></div>
+              {{targetMainContact.name}}<br>
+              {{targetMainContact.email}}<br>
+              {{targetMainContact.phone}}</div>
+            <h3 class="company-list__label">Next task</h3>
+            <span class="company-list__detail">{{nextTask.task}}<br>
+            {{nextTask.deadline}}.</span>
+            <h3 class="company-list__label">Priority Level</h3>
+            <span class="company-detail">{{urgency}}</span><br>
+          </div>
+        </div>
       </li>
       {{/each}}
     </ul>
@@ -55,7 +76,8 @@
   </script>
 
 
-  <script src="js/handlebars.min.js" charset="utf-8"></script>
+  <script src="js/lib/handlebars.min.js" charset="utf-8"></script>
+  <script src="js/lib/numeral.min.js" charset="utf-8"></script>
   <script src="js/model.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>
 </body>
