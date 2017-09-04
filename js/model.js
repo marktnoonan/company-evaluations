@@ -105,9 +105,10 @@ var targets = [{
 
 var formChildren = {
   "requiredStrings": ["companyName", "internalLead"],
-  "strings": ["notes", "location", "mainContactName", "mainContactEmail", "mainContactPhone"],
+  "strings": ["location", "mainContactName", "mainContactEmail", "mainContactPhone", "notes"],
   "integers": ["lastYearEarnings", "lastYearExpenses", "totalAssets", "liabilities", "employeeCount", "foundedYear"],
   "selects": ["status", "targetPosition", "urgency", "financialInfoSource", "primaryInterest"]
+
 }
 
 var selectOptions = {
@@ -116,6 +117,41 @@ var selectOptions = {
   "urgency": ["low", "normal", "high"],
   "financialInfoSource": ["Reported", "Audited", "Inferred / Mixed"],
   "primaryInterest": ["Product", "Employees", "Physical Assets", "Digital Assets"]
+}
+
+var readableFormFields = {
+companyName: "Company Name",
+internalLead: "Our Lead Person",
+location: "Company Location",
+mainContactName: "Contact Person at Company",
+mainContactEmail: "Email Address",
+mainContactPhone: "Phone Number",
+notes: "Initial Notes",
+lastYearEarnings: "Earnings Last Year",
+lastYearExpenses: "Expenses Last Year",
+totalAssets: "Total Value of Assets",
+liabilities: "Total Value of Liabilities",
+employeeCount: "Number of Employees",
+foundedYear: "Year Founded",
+status: "Status of Acquisition",
+targetPosition: "Public Position of Business",
+urgency: "Priority of Acquisition",
+financialInfoSource: "Source of Financial Information",
+primaryInterest: "Main Feature of Interest"
+}
+
+var newTargetDefaults = {
+  "lastYearProfit": "Need earnings and expenses",
+  "profitable": false,
+  "debtRatio": "Need assets and liabilities",
+  "nextTask": {
+    "task": "Continue research",
+    "deadline": ""
+  },
+  "lastActivity": {
+    "activity": "Added to pipline",
+    "date": new Date().toString().substring(0,15)
+  }
 }
 
 

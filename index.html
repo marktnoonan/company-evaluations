@@ -28,14 +28,17 @@
       <div id="detail-container" class="detail-container">
       </div>
     </div>
-    <div class="add-target-wrapper">
-      <div id="add-target-container" class="add-target-container">
 
+    <div class="add-target-wrapper">
+      <h1 class="main-header__title">Add New Target Business</h1>
+      <form method="post" id="add-target-form">
+      <div id="add-target-container" class="add-target-container">
       </div>
       <section>
-          <p> <button class="add-target-form__cancel">Cancel</button> </p>
+         <button class="add-target-form__cancel">Cancel</button>
+        <button type="submit">Add this target!</button>
       </section>
-
+    </form>
     </div>
 
   </main>
@@ -78,6 +81,7 @@
   </script>
 
   <script id="detail-template" type="text/x-handlebars-template">
+    <!-- TODO: create handlebars helpers for these various repeating elements -->
     <section class="detail">
       <header>
         <h1 class="main-header__title">"{{companyName}}" in {{location}}</h1>
@@ -170,25 +174,23 @@
   </script>
 
   <script id="add-target-template" type="text/x-handlebars-template">
-    <form method="post" class=>
-            <h1 class="main-header__title">Add New Target Business</h1>
-            <section class="add-target-form">
-              <form method="post">
-                {{#with formChildren}}
-                  {{#each requiredStrings}}
-                    <label for="{{this}}">{{this}}</label><input type="text" name="{{this}}" class="add-target-form__text-input" required></input>(required)<br>
-                  {{/each}}
-                {{/with}}
-            </form>
-            </section>
-               <button type="submit">Add this target!</button>
-            </section>
-        </form>
+
+
+      <section>
+        {{#with formChildren}} {{#each requiredStrings}}
+        <label for="{{this}}">{{readable this}}</label> (required)<br><input type="text" name="{{this}}" class="add-target-form__text-input" required></input><br> {{/each}} {{#each strings}}
+        <label for="{{this}}">{{readable this}}</label><br><input type="text" name="{{this}}" class="add-target-form__text-input"></input><br> {{/each}} {{#each integers}}
+        <label for="{{this}}">{{readable this}}</label><br><input type="number" name="{{this}}" class="add-target-form__text-input"></input><br> {{/each}} {{#each selects}}
+        <label for="{{this}}">{{readable this}}</label><br><select name="{{this}}" class="add-target-form__text-input">
+                      {{option this}}
+                    </select><br> {{/each}} {{/with}}
+      </section>
   </script>
 
 
 
   <script src="js/lib/handlebars.min.js" charset="utf-8"></script>
+  <script src="js/helpers.js" charset="utf-8"></script>
   <script src="js/lib/numeral.min.js" charset="utf-8"></script>
   <script src="js/model.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>

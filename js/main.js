@@ -1,7 +1,9 @@
 var context = {
   targets: targets,
   formChildren: formChildren,
-  selectOptions: selectOptions
+  selectOptions: selectOptions,
+  readableFormFields: readableFormFields,
+  newTargetDefaults: newTargetDefaults
 };
 
 var palette = {
@@ -52,6 +54,8 @@ function prettifyNumbers(targetObject) {
     var value = targetObject[key];
     if (typeof value === "number" && key !== "uid") {
       targetObject["pretty-" + key] = numeral(value).format('(0,0)');
+    } else if (value === "unknown" && key !== "foundedYear") {
+          targetObject["pretty-" + key] = "0";
     }
   });
   return targetObject;
@@ -81,8 +85,6 @@ function addListeners() {
   var maximizeButtons = [].slice.call(document.querySelectorAll(".li-body__view-full-button"));
   var fullViewCloser = document.querySelector(".detail-wrapper__closer");
   var detailWrapper = document.querySelector(".detail-wrapper");
-  var addTargetCancelButton = document.querySelector(".add-target-form__cancel");
-  var addTargetWrapper = document.querySelector(".add-target-wrapper");
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -103,11 +105,46 @@ function addListeners() {
     window.location.hash = "";
   });
 
+}
+
+function addFormListeners () {
+  var addTargetCancelButton = document.querySelector(".add-target-form__cancel");
+  var addTargetWrapper = document.querySelector(".add-target-wrapper");
+  var addTargetForm = document.querySelector("#add-target-form");
+
   addTargetCancelButton.addEventListener("click", function() {
     addTargetWrapper.classList.remove("add-target-wrapper--show");
     window.location.hash = "";
-  })
+  });
+
+  addTargetForm.addEventListener("submit", function formListener (event) {
+    console.log("form submit event firing");
+    event.preventDefault();
+    var formInputs = [].slice.call(event.target);
+    var keysAndValues = formInputs.map(function (input) {
+      return ([input.name, input.value]);
+    });
+    var newTarget = {...context.newTargetDefaults};
+
+    keysAndValues.forEach(function (keyAndValue) {
+      if (parseInt(keyAndValue[1])) {
+        keyAndValue[1] = parseInt(keyAndValue[1]);
+      }
+      newTarget[keyAndValue[0]] = keyAndValue[1] || "unknown";
+    });
+    console.log(newTarget);
+    newTarget.uid = context.targets.length;
+    if (newTarget.lastYearEarnings && newTarget.lastYearExpenses) {
+          newTarget.lastYearProfit = newTarget.lastYearEarnings - newTarget.lastYearExpenses;
+    }
+
+    context.targets.push(newTarget);
+    processTargets();
+    window.location.hash = "";
+    render('#list-template', '#list');
+  });
 }
+
 
 function onHashChange() {
   if (window.location.hash) {
@@ -127,6 +164,7 @@ function onHashChange() {
 
 (function init() {
   processTargets();
+  addFormListeners();
   window.onhashchange = onHashChange;
   if (window.location.hash) {
     onHashChange();
