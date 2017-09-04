@@ -48,7 +48,8 @@
   <script id="list-template" type="text/x-handlebars-template">
     <ul class="company-list">
       {{#each processedTargets}}
-      <li class="company-list__item" id="{{@index}}">
+
+      <li class="company-list__item" id="li{{@index}}" {{#if display}} style="display: inline-block" {{/if}}>
         <h2 class="company-list__name">{{companyName}}</h2>
         <span class="company-list__status" style="color: {{statusColor}}">{{status}}</span><br>
         <div class="li-body" id="li-body{{@index}}">
@@ -79,11 +80,10 @@
           </div>
         </div>
         <div class="li-body__delete-confirm" id="delete-target{{@index}}">
-          <button> Cancel </button>
-          <button> Delete {{companyName}} </button>
+          <button class="cancel-delete-button"> Cancel </button>
+          <button class="confirm-delete-button"> Delete {{companyName}} </button>
         </div>
       </li>
-
       {{/each}}
     </ul>
 

@@ -30,7 +30,8 @@ var targets = [{
     "primaryInterest": "Employees",
     "urgency": "low",
     "internalLead": "Leonard",
-    "notes": "Owner is deep in debt."
+    "notes": "Owner is deep in debt.",
+    "display": true
   },
   {
     "uid": 1,
@@ -64,7 +65,8 @@ var targets = [{
     "primaryInterest": "Other",
     "urgency": "high",
     "internalLead": "Manny",
-    "notes": "This upholstery business is killing it."
+    "notes": "This upholstery business is killing it.",
+    "display": true
   },
   {
     "uid": 2,
@@ -98,7 +100,8 @@ var targets = [{
     "primaryInterest": "Brand Recognition",
     "urgency": "low",
     "internalLead": "Jennifer",
-    "notes": "a dollar seems high for this"
+    "notes": "a dollar seems high for this",
+    "display": true
   }
 ];
 
@@ -151,7 +154,8 @@ var newTargetDefaults = {
   "lastActivity": {
     "activity": "Added to pipline",
     "date": new Date().toString().substring(0,15)
-  }
+  },
+  "display": true
 }
 
 

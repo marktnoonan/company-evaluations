@@ -21,7 +21,7 @@ var colorAssignments = {
   "Declined": "orange"
 }
 
-var hashFunctions = {
+var urlFunctions = {
   maximize(index) {
     render("#detail-template", "#detail-container", index);
   },
@@ -86,6 +86,8 @@ function addListeners() {
   var fullViewCloser = document.querySelector(".detail-wrapper__closer");
   var detailWrapper = document.querySelector(".detail-wrapper");
   var deleteTargetButtons = arrayFromCollection(document.querySelectorAll(".li-body__delete-button"));
+  var cancelDeleteButtons = arrayFromCollection(document.querySelectorAll(".cancel-delete-button"));
+  var confirmDeleteButtons = arrayFromCollection(document.querySelectorAll(".confirm-delete-button"));
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -100,6 +102,21 @@ function addListeners() {
         deleteTarget(i);
       });
   });
+
+  cancelDeleteButtons.forEach(function(button, i) {
+    button.addEventListener("click",
+      function() {
+        cancelDelete(i);
+      });
+  });
+
+  confirmDeleteButtons.forEach(function(button, i) {
+    button.addEventListener("click",
+      function() {
+        confirmDelete(i);
+      });
+  });
+
 
   maximizeButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -159,7 +176,7 @@ function onHashChange() {
     var methodAndRef = hashContent.split("-");
     var method = methodAndRef[0];
     var ref = methodAndRef[1] || ""; // to avoid passing "undefined" if no "-" in has;
-    hashFunctions[method](ref);
+    urlFunctions[method](ref);
   } else { // if hash is empty we want default view, remove any modals that might be open.
     if (document.querySelector(".detail-wrapper--show")) {
       document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
@@ -181,6 +198,13 @@ function cancelDelete(index) {
   var deleteConfirmation = document.querySelector("#delete-target" + index);
   targetBody.classList.remove("li-body__pre-delete");
   deleteConfirmation.classList.remove("li-body__delete-confirm--show");
+}
+
+function confirmDelete(index){
+  var liForElement = document.querySelector("#li" + index);
+  context.targets[index].display = false;
+  context.processedTargets[index].display = false;
+  liForElement.style.display = "none";
 }
 
 function arrayFromCollection(collection) {
