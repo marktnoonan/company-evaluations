@@ -81,11 +81,11 @@ function render(templateSelector, destinationSelector, targetIndex) {
 }
 
 function addListeners() {
-  var expandButtons = [].slice.call(document.querySelectorAll(".expand"));
-  var maximizeButtons = [].slice.call(document.querySelectorAll(".li-body__view-full-button"));
+  var expandButtons = arrayFromCollection(document.querySelectorAll(".expand"));
+  var maximizeButtons = arrayFromCollection(document.querySelectorAll(".li-body__view-full-button"));
   var fullViewCloser = document.querySelector(".detail-wrapper__closer");
   var detailWrapper = document.querySelector(".detail-wrapper");
-  var deleteTargetButtons = [].slice.call(document.querySelectorAll(".li-body__delete-button"));
+  var deleteTargetButtons = arrayFromCollection(document.querySelectorAll(".li-body__delete-button"));
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -127,7 +127,7 @@ function addFormListeners () {
 
   addTargetForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    var formInputs = [].slice.call(event.target);
+    var formInputs = arrayFromCollection(event.target);
     var keysAndValues = formInputs.map(function (input) {
       return ([input.name, input.value]);
     });
@@ -181,6 +181,10 @@ function cancelDelete(index) {
   var deleteConfirmation = document.querySelector("#delete-target" + index);
   targetBody.classList.remove("li-body__pre-delete");
   deleteConfirmation.classList.remove("li-body__delete-confirm--show");
+}
+
+function arrayFromCollection(collection) {
+  return [].slice.call(collection);
 }
 
 
