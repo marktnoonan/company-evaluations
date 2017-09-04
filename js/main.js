@@ -1,5 +1,7 @@
 var context = {
-  targets: targets
+  targets: targets,
+  formChildren: formChildren,
+  selectOptions: selectOptions
 };
 
 var palette = {
@@ -19,7 +21,7 @@ var colorAssignments = {
 
 var hashFunctions = {
   maximize(index) {
-      render("#detail-template", "#detail-container", index);
+    render("#detail-template", "#detail-container", index);
   },
   addTarget() {
     render("#add-target-template", "#add-target-container");
@@ -28,17 +30,17 @@ var hashFunctions = {
 
 function toggleExpand(expandRef) {
   var targetElement = document.querySelector("#additional-" + expandRef);
-  if (targetElement.classList.contains("company-list__detail--show-additional")){
+  if (targetElement.classList.contains("company-list__detail--show-additional")) {
     targetElement.classList.remove("company-list__detail--show-additional");
   } else {
     targetElement.classList.add("company-list__detail--show-additional");
   }
-
 }
 
 function processTargets() {
   context.processedTargets = context.targets.map(function(target) {
-    var targetCopy = { ...target};
+    var targetCopy = { ...target
+    };
     var prettyTarget = prettifyNumbers(targetCopy);
     prettyTarget.statusColor = palette[colorAssignments[target.status]];
     return prettyTarget;
@@ -96,13 +98,12 @@ function addListeners() {
       });
   });
 
-  fullViewCloser.addEventListener("click", function () {
+  fullViewCloser.addEventListener("click", function() {
     detailWrapper.classList.remove("detail-wrapper--show");
     window.location.hash = "";
   });
 
-  addTargetCancelButton.addEventListener("click", function () {
-    console.log("clicked cancel");
+  addTargetCancelButton.addEventListener("click", function() {
     addTargetWrapper.classList.remove("add-target-wrapper--show");
     window.location.hash = "";
   })
@@ -113,10 +114,10 @@ function onHashChange() {
     var hashContent = window.location.hash.substring(2);
     var methodAndRef = hashContent.split("-");
     var method = methodAndRef[0];
-    var ref = methodAndRef[1] || "";
+    var ref = methodAndRef[1] || ""; // to avoid passing "undefined" if no "-" in has;
     hashFunctions[method](ref);
-  } else {
-    if (document.querySelector(".detail-wrapper--show")){
+  } else { // if hash is empty we want default view, remove any modals that might be open.
+    if (document.querySelector(".detail-wrapper--show")) {
       document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
     } else if (document.querySelector(".add-target-wrapper--show")) {
       document.querySelector(".add-target-wrapper").classList.remove("add-target-wrapper--show");
@@ -124,11 +125,10 @@ function onHashChange() {
   }
 }
 
-
 (function init() {
   processTargets();
   window.onhashchange = onHashChange;
-  if (window.location.hash){
+  if (window.location.hash) {
     onHashChange();
   }
   render('#list-template', '#list');

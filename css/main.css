@@ -255,3 +255,11 @@ tbody tr:nth-child(even) {
   margin: 10px;
   min-width: 180px;
 }
+
+form {
+  text-align: left;
+}
+
+.add-target-form__text-input {
+  margin: 4px;
+}
