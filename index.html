@@ -177,13 +177,29 @@
 
 
       <section>
-        {{#with formChildren}} {{#each requiredStrings}}
-        <label for="{{this}}">{{readable this}}</label> (required)<br><input type="text" name="{{this}}" class="add-target-form__text-input" required></input><br> {{/each}} {{#each strings}}
-        <label for="{{this}}">{{readable this}}</label><br><input type="text" name="{{this}}" class="add-target-form__text-input"></input><br> {{/each}} {{#each integers}}
-        <label for="{{this}}">{{readable this}}</label><br><input type="number" name="{{this}}" class="add-target-form__text-input"></input><br> {{/each}} {{#each selects}}
-        <label for="{{this}}">{{readable this}}</label><br><select name="{{this}}" class="add-target-form__text-input">
-                      {{option this}}
-                    </select><br> {{/each}} {{/with}}
+        {{#with formChildren}}
+          {{#each requiredStrings}}
+          <label for="{{this}}" class="add-target-form__label">{{readable this}} (required)</label>
+          <input type="text" name="{{this}}" class="add-target-form__text-input" required></input><br> {{/each}}
+
+          {{#each strings}}
+          <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
+          <input type="text" name="{{this}}" class="add-target-form__text-input"></input><br>
+          {{/each}}
+
+          {{#each integers}}
+          <section class="add-target-form__numbers">
+            <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
+            <input type="number" name="{{this}}" class="add-target-form__text-input"></input><br>
+          {{/each}}
+
+          {{#each selects}}
+          <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
+          <select name="{{this}}" class="add-target-form__text-input">
+            {{option this}}
+          </select>
+          {{/each}}
+        {{/with}}
       </section>
   </script>
 

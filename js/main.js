@@ -117,7 +117,7 @@ function addFormListeners () {
     window.location.hash = "";
   });
 
-  addTargetForm.addEventListener("submit", function formListener (event) {
+  addTargetForm.addEventListener("submit", function (event) {
     console.log("form submit event firing");
     event.preventDefault();
     var formInputs = [].slice.call(event.target);

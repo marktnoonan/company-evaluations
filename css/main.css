@@ -274,5 +274,12 @@ button {
 }
 
 .add-target-form__text-input {
-  margin: 4px;
+  margin-top: 3px;
+}
+
+.add-target-form__label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 11px;
 }
