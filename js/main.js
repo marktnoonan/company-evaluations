@@ -113,9 +113,8 @@ function onHashChange() {
     var hashContent = window.location.hash.substring(2);
     var methodAndRef = hashContent.split("-");
     var method = methodAndRef[0];
-    var ref = methodAndRef[1];
+    var ref = methodAndRef[1] || "";
     hashFunctions[method](ref);
-    console.log(method, ref);
   } else {
     if (document.querySelector(".detail-wrapper--show")){
       document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
