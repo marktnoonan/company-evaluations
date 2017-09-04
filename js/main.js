@@ -85,11 +85,19 @@ function addListeners() {
   var maximizeButtons = [].slice.call(document.querySelectorAll(".li-body__view-full-button"));
   var fullViewCloser = document.querySelector(".detail-wrapper__closer");
   var detailWrapper = document.querySelector(".detail-wrapper");
+  var deleteTargetButtons = [].slice.call(document.querySelectorAll(".li-body__delete-button"));
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
       function() {
         toggleExpand(i);
+      });
+  });
+
+  deleteTargetButtons.forEach(function(button, i) {
+    button.addEventListener("click",
+      function() {
+        deleteTarget(i);
       });
   });
 
@@ -108,7 +116,7 @@ function addListeners() {
 }
 
 function addFormListeners () {
-  var addTargetCancelButton = document.querySelector(".add-target-form__cancel");
+  var addTargetCancelButton = document.querySelector("#cancel");
   var addTargetWrapper = document.querySelector(".add-target-wrapper");
   var addTargetForm = document.querySelector("#add-target-form");
 
@@ -118,7 +126,6 @@ function addFormListeners () {
   });
 
   addTargetForm.addEventListener("submit", function (event) {
-    console.log("form submit event firing");
     event.preventDefault();
     var formInputs = [].slice.call(event.target);
     var keysAndValues = formInputs.map(function (input) {
@@ -132,7 +139,7 @@ function addFormListeners () {
       }
       newTarget[keyAndValue[0]] = keyAndValue[1] || "unknown";
     });
-    console.log(newTarget);
+
     newTarget.uid = context.targets.length;
     if (newTarget.lastYearEarnings && newTarget.lastYearExpenses) {
           newTarget.lastYearProfit = newTarget.lastYearEarnings - newTarget.lastYearExpenses;
@@ -161,6 +168,21 @@ function onHashChange() {
     }
   }
 }
+
+function deleteTarget(index) {
+  var targetBody = document.querySelector("#li-body" + index);
+  var deleteConfirmation = document.querySelector("#delete-target" + index);
+  targetBody.classList.add("li-body__pre-delete");
+  deleteConfirmation.classList.add("li-body__delete-confirm--show");
+}
+
+function cancelDelete(index) {
+  var targetBody = document.querySelector("#li-body" + index);
+  var deleteConfirmation = document.querySelector("#delete-target" + index);
+  targetBody.classList.remove("li-body__pre-delete");
+  deleteConfirmation.classList.remove("li-body__delete-confirm--show");
+}
+
 
 (function init() {
   processTargets();

@@ -18,6 +18,7 @@
     <div class="list-wrapper">
       <a href="#!addTarget" class="add-target-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus add-target-link__image"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+
         <span class="add-target-link__text">Add New Target</span>
       </a>
       <div id="list"></div>
@@ -34,9 +35,9 @@
       <form method="post" id="add-target-form">
       <div id="add-target-container" class="add-target-container">
       </div>
-      <section>
-         <button class="add-target-form__cancel">Cancel</button>
-        <button type="submit">Add this target!</button>
+      <section class="add-target-form__buttons">
+         <button class="add-target-form__button add-target-form__button--cancel" id="cancel">Clear form and Cancel</button>
+        <button type="submit" class="add-target-form__button add-target-form__button--submit">Add this target!</button>
       </section>
     </form>
     </div>
@@ -50,9 +51,12 @@
       <li class="company-list__item" id="{{@index}}">
         <h2 class="company-list__name">{{companyName}}</h2>
         <span class="company-list__status" style="color: {{statusColor}}">{{status}}</span><br>
-        <div class="li-body">
+        <div class="li-body" id="li-body{{@index}}">
           <div class="li-body__view-full-button">
             <img src="assets/icons/maximize-2.svg" />
+          </div>
+          <div class="li-body__delete-button">
+            <img src="assets/icons/x.svg" height="20"/>
           </div>
           <h3 class="company-list__label">Summary</h3>
           <span class="company-list__detail company-list__detail--top">
@@ -74,7 +78,12 @@
             {{nextTask.deadline}}.</span>
           </div>
         </div>
+        <div class="li-body__delete-confirm" id="delete-target{{@index}}">
+          <button> Cancel </button>
+          <button> Delete {{companyName}} </button>
+        </div>
       </li>
+
       {{/each}}
     </ul>
 
@@ -178,6 +187,7 @@
 
       <section>
         {{#with formChildren}}
+          <section class="add-target-form__part1">
           {{#each requiredStrings}}
           <label for="{{this}}" class="add-target-form__label">{{readable this}} (required)</label>
           <input type="text" name="{{this}}" class="add-target-form__text-input" required></input><br> {{/each}}
@@ -186,12 +196,16 @@
           <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
           <input type="text" name="{{this}}" class="add-target-form__text-input"></input><br>
           {{/each}}
-
-          {{#each integers}}
+        </section>
+        <section class="add-target-form__part2">
           <section class="add-target-form__numbers">
+          {{#each integers}}
+            <div class="add-target-form-set">
             <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
-            <input type="number" name="{{this}}" class="add-target-form__text-input"></input><br>
+            <input type="number" name="{{this}}" class="add-target-form__text-input add-target-form__text-input--number"></input>
+            </div>
           {{/each}}
+          </section>
 
           {{#each selects}}
           <label for="{{this}}" class="add-target-form__label">{{readable this}}</label>
@@ -199,6 +213,7 @@
             {{option this}}
           </select>
           {{/each}}
+        </section>
         {{/with}}
       </section>
   </script>

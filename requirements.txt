@@ -28,7 +28,7 @@ DONE: As a user, I can view some extra details about a target with one click to 
 DONE: As a user, I can view the entire record for a target at this point in the pipeline.
 Not everything is editable. Only what makes sense to edit.
 As a user, I can edit an existing target to provide updated information or fill in blanks.
-As a user, I can create a new target to add to the list.
+DONE: As a user, I can create a new target to add to the list.
 As a user, I can delete a target from the list.
 As a user, if I edit something that contributes to some other figure, it is recalculated and re-rendered live.
 
