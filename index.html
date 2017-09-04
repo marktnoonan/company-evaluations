@@ -11,19 +11,30 @@
 
 <body>
   <header class="main-header">
-    <h1 class="main-header__title"> Pipeline Viewer </h1>
+    <h1 class="main-header__title"><img src="assets/icons/trending-up.svg" class="main-header__image" /> Pipeline Viewer </h1>
   </header>
 
   <main>
     <div class="list-wrapper">
+      <a href="#!addTarget" class="add-target-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus add-target-link__image"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span class="add-target-link__text">Add New Target</span>
+      </a>
       <div id="list"></div>
     </div>
 
     <div class="detail-wrapper">
       <span class="detail-wrapper__closer">×</span>
       <div id="detail-container" class="detail-container">
+      </div>
+    </div>
+    <div class="add-target-wrapper">
+      <div id="add-target-container" class="add-target-container">
 
       </div>
+      <section>
+          <p> <button class="add-target-form__cancel">Cancel</button> </p>
+      </section>
 
     </div>
 
@@ -69,90 +80,174 @@
   <script id="detail-template" type="text/x-handlebars-template">
     <section class="detail">
       <header>
-        <h1 class="main-header__title">Detail for "{{companyName}}" in {{location}}</h1>
+        <h1 class="main-header__title">"{{companyName}}" in {{location}}</h1>
       </header>
-        <div class="company-full">
-          <div class="company-full__item">
-            <h3 class="company-list__label">Main Contact</h3>
-            <div class="company-list__detail company-list__detail--contact">
-              <div class="profile-pic"></div>
-              {{targetMainContact.name}}<br> {{targetMainContact.email}}
-              <br> {{targetMainContact.phone}}
-            </div>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Next task</h3>
-            <span class="company-list__detail">Deadline: {{nextTask.deadline}}</span><br>
-            <span class="company-list__detail">Task: {{nextTask.task}}</span>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Priority Level</h3>
-            <span class="company-detail">{{urgency}}</span>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Last Activity</h3>
-            <span class="company-detail">{{lastActivity.date}}</span><br>
-            <span class="company-detail">{{lastActivity.activity}}</span>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Primary Interest</h3>
-            <span class="company-detail">{{primaryInterest}}</span>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Internal Lead</h3>
-            <span class="company-detail">{{internalLead}}</span>
-          </div>
-          <div class="company-full__item">
-            <h3 class="company-list__label">Notes</h3>
-            <span class="company-detail">{{notes}}</span>
+      <div class="company-full">
+        <div class="company-full__item">
+          <h3 class="company-list__label">Status</h3>
+          <span class="company-list__detail">{{status}}</span>
+        </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Main Contact</h3>
+          <div class="company-list__detail company-list__detail--contact">
+            <div class="profile-pic"></div>
+            {{targetMainContact.name}}<br> {{targetMainContact.email}}
+            <br> {{targetMainContact.phone}}
           </div>
         </div>
-        <div class="details-table-group">
-          <table summary="Details about {{companyName}}" class="details-table">
-            <thead>
-              <tr>
-                <th scope="col" colspan="2">Financials (last year)</th>
-                <th scope="col" colspan="2">General Information</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Earnings</th>
-                <td>${{pretty-lastYearEarnings}}</td>
-                <th scope="row">Profitable</th>
-                <td><img src="assets/icons/{{profitable}}.svg" /></td>
-              </tr>
-              <tr>
-                <th scope="row">Expenses</th>
-                <td>${{pretty-lastYearExpenses}}</td>
-                <th scope="row">Debt Ratio</th>
-                <td>{{debtRatio}}</td>
-              </tr>
-              <tr>
-                <th scope="row">Profit</th>
-                <td>${{pretty-lastYearProfit}}</td>
-                <th scope="row">Source of Financials</th>
-                <td>{{financialInfoSource}}</td>
-              </tr>
-              <tr>
-                <th scope="row">Assets</th>
-                <td>${{pretty-totalAssets}}</td>
-                <th scope="row">Employees</th>
-                <td>{{employeeCount}}</td>
-              </tr>
-              <tr>
-                <th scope="row">Liabilities</th>
-                <td>${{pretty-liabilities}}</td>
-                <th scope="row">Position</th>
-                <td>{{targetPosition}}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Priority Level</h3>
+          <span class="company-detail">{{urgency}}</span>
         </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Next task</h3>
+          <span class="company-list__detail">Deadline: {{nextTask.deadline}}</span><br>
+          <span class="company-list__detail">Task: {{nextTask.task}}</span>
+        </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Last Activity</h3>
+          <span class="company-detail">{{lastActivity.date}}</span><br>
+          <span class="company-detail">{{lastActivity.activity}}</span>
+        </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Primary Interest</h3>
+          <span class="company-detail">{{primaryInterest}}</span>
+        </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Internal Lead</h3>
+          <span class="company-detail">{{internalLead}}</span>
+        </div>
+        <div class="company-full__item">
+          <h3 class="company-list__label">Notes</h3>
+          <span class="company-detail">{{notes}}</span>
+        </div>
+      </div>
+      <div class="details-table-group">
+        <table summary="Details about {{companyName}}" class="details-table">
+          <thead>
+            <tr>
+              <th scope="col" colspan="2">Financials (last year)</th>
+              <th scope="col" colspan="2">General Information</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Earnings</th>
+              <td>${{pretty-lastYearEarnings}}</td>
+              <th scope="row">Profitable</th>
+              <td><img src="assets/icons/{{profitable}}.svg" /></td>
+            </tr>
+            <tr>
+              <th scope="row">Expenses</th>
+              <td>${{pretty-lastYearExpenses}}</td>
+              <th scope="row">Debt Ratio</th>
+              <td>{{debtRatio}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Profit</th>
+              <td>${{pretty-lastYearProfit}}</td>
+              <th scope="row">Source of Financials</th>
+              <td>{{financialInfoSource}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Assets</th>
+              <td>${{pretty-totalAssets}}</td>
+              <th scope="row">Employees</th>
+              <td>{{pretty-employeeCount}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Liabilities</th>
+              <td>${{pretty-liabilities}}</td>
+              <th scope="row">Position</th>
+              <td>{{targetPosition}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       </div>
     </section>
   </script>
+
+  <script id="add-target-template" type="text/x-handlebars-template">
+    <form method="post">
+            <h1>Payment form</h1>
+            <p>Required fields are followed by <strong><abbr title="required">*</abbr></strong>.</p>
+            <section>
+                <h2>Contact information</h2>
+                <fieldset>
+                  <legend>Title</legend>
+                  <ul>
+                      <li>
+                        <label for="title_1">
+                          <input type="radio" id="title_1" name="title" value="M." >
+                          Mister
+                        </label>
+                      </li>
+                      <li>
+                        <label for="title_2">
+                          <input type="radio" id="title_2" name="title" value="Ms.">
+                          Miss
+                        </label>
+                      </li>
+                  </ul>
+                </fieldset>
+                <p>
+                  <label for="name">
+                    <span>Name: </span>
+                    <strong><abbr title="required">*</abbr></strong>
+                  </label>
+                  <input type="text" id="name" name="username">
+                </p>
+                <p>
+                  <label for="mail">
+                    <span>E-mail: </span>
+                    <strong><abbr title="required">*</abbr></strong>
+                  </label>
+                  <input type="email" id="mail" name="usermail">
+                </p>
+                <p>
+                  <label for="pwd">
+                    <span>Password: </span>
+                    <strong><abbr title="required">*</abbr></strong>
+                  </label>
+                  <input type="password" id="pwd" name="password">
+                </p>
+            </section>
+            <section>
+                <h2>Payment information</h2>
+                <p>
+                  <label for="card">
+                    <span>Card type:</span>
+                  </label>
+                  <select id="card" name="usercard">
+                    <option value="visa">Visa</option>
+                    <option value="mc">Mastercard</option>
+                    <option value="amex">American Express</option>
+                  </select>
+                </p>
+                <p>
+                  <label for="number">
+                    <span>Card number:</span>
+                    <strong><abbr title="required">*</abbr></strong>
+                  </label>
+                    <input type="text" id="number" name="cardnumber">
+                </p>
+                <p>
+                  <label for="date">
+                    <span>Expiration date:</span>
+                    <strong><abbr title="required">*</abbr></strong>
+                    <em>formatted as mm/yy</em>
+                  </label>
+                  <input type="text" id="date" name="expiration">
+                </p>
+            </section>
+            <section>
+                <p> <button type="submit">Validate the payment</button> </p>
+            </section>
+        </form>
+  </script>
+
 
 
   <script src="js/lib/handlebars.min.js" charset="utf-8"></script>

@@ -18,9 +18,11 @@ var colorAssignments = {
 }
 
 var hashFunctions = {
-  maximize(index){
+  maximize(index) {
       render("#detail-template", "#detail-container", index);
-
+  },
+  addTarget() {
+    render("#add-target-template", "#add-target-container");
   }
 }
 
@@ -34,11 +36,9 @@ function toggleExpand(expandRef) {
 
 }
 
-
 function processTargets() {
   context.processedTargets = context.targets.map(function(target) {
-    var targetCopy = { ...target
-    };
+    var targetCopy = { ...target};
     var prettyTarget = prettifyNumbers(targetCopy);
     prettyTarget.statusColor = palette[colorAssignments[target.status]];
     return prettyTarget;
@@ -69,6 +69,8 @@ function render(templateSelector, destinationSelector, targetIndex) {
     addListeners();
   } else if (templateSelector === "#detail-template") {
     document.querySelector(".detail-wrapper").classList.add("detail-wrapper--show");
+  } else if (templateSelector === "#add-target-template") {
+    document.querySelector(".add-target-wrapper").classList.add("add-target-wrapper--show");
   }
 }
 
@@ -77,6 +79,8 @@ function addListeners() {
   var maximizeButtons = [].slice.call(document.querySelectorAll(".li-body__view-full-button"));
   var fullViewCloser = document.querySelector(".detail-wrapper__closer");
   var detailWrapper = document.querySelector(".detail-wrapper");
+  var addTargetCancelButton = document.querySelector(".add-target-form__cancel");
+  var addTargetWrapper = document.querySelector(".add-target-wrapper");
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -96,6 +100,12 @@ function addListeners() {
     detailWrapper.classList.remove("detail-wrapper--show");
     window.location.hash = "";
   });
+
+  addTargetCancelButton.addEventListener("click", function () {
+    console.log("clicked cancel");
+    addTargetWrapper.classList.remove("add-target-wrapper--show");
+    window.location.hash = "";
+  })
 }
 
 function onHashChange() {
@@ -107,7 +117,11 @@ function onHashChange() {
     hashFunctions[method](ref);
     console.log(method, ref);
   } else {
-    console.log("no hash??");
+    if (document.querySelector(".detail-wrapper--show")){
+      document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
+    } else if (document.querySelector(".add-target-wrapper--show")) {
+      document.querySelector(".add-target-wrapper").classList.remove("add-target-wrapper--show");
+    }
   }
 }
 
