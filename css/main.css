@@ -180,7 +180,7 @@ main {
   background-size: cover;
 }
 
-.detail-wrapper, .add-target-wrapper {
+.detail-wrapper, .add-target-wrapper, .edit-target-wrapper {
   text-align: center;
   display: block;
   position: absolute;
@@ -208,7 +208,7 @@ main {
     transform: scale(1.1);
 }
 
-.detail-wrapper--show, .add-target-wrapper--show {
+.detail-wrapper--show, .add-target-wrapper--show, .edit-target-wrapper--show {
   opacity: 1;
   pointer-events: all;
   transition: opacity 100ms ease-in-out;
@@ -336,7 +336,7 @@ input, select {
   margin-left: 10px;
 }
 
-.add-target-form__buttons {
+.add-target-form__buttons, .edit-target-form__buttons {
   clear:both;
   margin: 0 auto;
   width: 300px;
@@ -344,7 +344,7 @@ input, select {
   padding-top: 25px;
 }
 
-.add-target-form__button {
+.add-target-form__button, .edit-target-form__button {
   padding: 10px;
   font-weight:bold;
   border-radius: 4px;
@@ -356,7 +356,7 @@ input, select {
 
 }
 
-.add-target-form__button--submit {
+.add-target-form__button--submit, .edit-target-form__button--submit {
   background-color: #8AB755;
 }
 

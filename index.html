@@ -31,13 +31,27 @@
     </div>
 
     <div class="add-target-wrapper">
-      <h1 class="main-header__title">Add New Target Business</h1>
+      <h1 class="main-header__title">Add Target Business</h1>
       <form method="post" id="add-target-form">
       <div id="add-target-container" class="add-target-container">
+        <!-- form template gets inserted here -->
       </div>
       <section class="add-target-form__buttons">
          <button type="reset" class="add-target-form__button add-target-form__button--cancel" id="cancel">Clear form and Cancel</button>
         <button type="submit" class="add-target-form__button add-target-form__button--submit">Add this target!</button>
+      </section>
+    </form>
+    </div>
+
+    <div class="edit-target-wrapper">
+      <h1 class="main-header__title">Edit Target Business</h1>
+      <form method="post" id="edit-target-form">
+      <div id="edit-target-container" class="edit-target-container">
+        <!-- form template gets inserted here -->
+      </div>
+      <section class="edit-target-form__buttons">
+         <button type="reset" class="edit-target-form__button edit-target-form__button--cancel" id="cancel-edit">Cancel</button>
+        <button type="submit" class="edit-target-form__button edit-target-form__button--submit">Save Changes</button>
       </section>
     </form>
     </div>
@@ -94,10 +108,12 @@
     <section class="detail">
       <header>
         <h1 class="full-view-header__title">"{{companyName}}" in {{location}}</h1>
-        <button class="edit-target-button" data-uid="{{uid}}">
+        <a href="#!editTarget-{{uid}}">
+        <button class="edit-target-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
            <span class="edit-target-button__text">Edit</span>
         </button>
+      </a>
       </header>
       <div class="company-full">
         <div class="company-full__item">
@@ -187,8 +203,6 @@
   </script>
 
   <script id="add-target-template" type="text/x-handlebars-template">
-
-
       <section>
         {{#with formChildren}}
           <section class="add-target-form__part1">
@@ -201,6 +215,7 @@
           <input type="text" name="{{this}}" class="add-target-form__text-input"></input><br>
           {{/each}}
         </section>
+
         <section class="add-target-form__part2">
           <section class="add-target-form__numbers">
           {{#each integers}}

@@ -1,7 +1,6 @@
 // from: http://speakingjs.com/es5/ch17.html#code_copyOwnPropertiesFrom
 // for where I would use spread operator.
 
-
 function spreadObject(orig) {
     // 1. copy has same prototype as orig
     var copy = Object.create(Object.getPrototypeOf(orig));
@@ -21,6 +20,21 @@ function copyOwnPropertiesFrom(target, source) {
     return target;
 };
 
+
+// my own helpers:
+
 function arrayFromCollection(collection) {
   return [].slice.call(collection);
+}
+
+function prettifyNumbers(targetObject) {
+  Object.keys(targetObject).forEach(function(key) {
+    var value = targetObject[key];
+    if (typeof value === "number" && key !== "uid") {
+      targetObject["pretty-" + key] = numeral(value).format('(0,0)');
+    } else if (value === "unknown" && key !== "foundedYear") {
+          targetObject["pretty-" + key] = "0";
+    }
+  });
+  return targetObject;
 }

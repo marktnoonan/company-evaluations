@@ -24,10 +24,42 @@ var colorAssignments = {
 var urlFunctions = {
   maximize(index) {
     render("#detail-template", "#detail-container", index);
+    if (document.querySelector(".edit-target-wrapper--show")) {
+      document.querySelector(".edit-target-wrapper").classList.remove("edit-target-wrapper--show");
+    }
   },
   addTarget() {
     render("#add-target-template", "#add-target-container");
+  },
+  editTarget(index){
+    context.nowEditing = index;
+    render("#add-target-template", "#edit-target-container");
+    populateEditForm();
   }
+}
+
+function populateEditForm() {
+  var objectToEdit = context.targets[context.nowEditing];
+  var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
+  formInputs.forEach(function (input) {
+    input.value = objectToEdit[input.name] || "";
+  });
+}
+
+function saveEdits() {
+  var objectToEdit = context.targets[context.nowEditing];
+  var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
+
+  formInputs.forEach(function (input) {
+    if (parseInt(input.value)) {
+      objectToEdit[input.name] = parseInt(input.value);
+    }
+    objectToEdit[input.name] = input.value || "unknown";
+  });
+
+  processTargets();
+  window.location.hash = "";
+  render('#list-template', '#list');
 }
 
 function toggleExpand(expandRef) {
@@ -48,18 +80,6 @@ function processTargets() {
   });
 }
 
-function prettifyNumbers(targetObject) {
-  Object.keys(targetObject).forEach(function(key) {
-    var value = targetObject[key];
-    if (typeof value === "number" && key !== "uid") {
-      targetObject["pretty-" + key] = numeral(value).format('(0,0)');
-    } else if (value === "unknown" && key !== "foundedYear") {
-          targetObject["pretty-" + key] = "0";
-    }
-  });
-  return targetObject;
-}
-
 function render(templateSelector, destinationSelector, targetIndex) {
   var chosenTemplate = document.querySelector(templateSelector).innerHTML;
   var destination = document.querySelector(destinationSelector);
@@ -72,12 +92,13 @@ function render(templateSelector, destinationSelector, targetIndex) {
   destination.innerHTML = html;
   if (templateSelector === "#list-template") {
     addListeners();
-  } else if (templateSelector === "#detail-template") {
+  } else if (destinationSelector === "#detail-container") {
     document.querySelector(".detail-wrapper").classList.add("detail-wrapper--show");
-    addEditListener();
-  } else if (templateSelector === "#add-target-template") {
+  } else if (destinationSelector === "#add-target-container") {
     document.querySelector(".add-target-wrapper").classList.add("add-target-wrapper--show");
-  }
+  } else if (destinationSelector === "#edit-target-container") {
+    document.querySelector(".edit-target-wrapper").classList.add("edit-target-wrapper--show");
+  } // these blocks are so similar we can combine them, but lets settle on the CSS structure first
 }
 
 function addListeners() {
@@ -133,9 +154,18 @@ function addListeners() {
 }
 
 function addFormListeners () {
+  //TODO: split some of this out and add debt ratio calculation to the process
+
+  var editCancelButton = document.querySelector("#cancel-edit");
+  var editTargetWrapper = document.querySelector(".edit-target-wrapper");
   var addTargetCancelButton = document.querySelector("#cancel");
   var addTargetWrapper = document.querySelector(".add-target-wrapper");
   var addTargetForm = document.querySelector("#add-target-form");
+
+  editCancelButton.addEventListener("click", function() {
+    editTargetWrapper.classList.remove("edit-target-wrapper--show");
+    window.location.hash = "!maximize-" + context.nowEditing;
+  });
 
   addTargetCancelButton.addEventListener("click", function() {
     addTargetWrapper.classList.remove("add-target-wrapper--show");
@@ -169,13 +199,6 @@ function addFormListeners () {
   });
 }
 
-function addEditListener() {
-  var editTargetButton = document.querySelector(".edit-target-button");
-  editTargetButton.addEventListener("click", function () {
-    console.log(editTargetButton.dataset.uid);
-  });
-
-}
 
 
 function onHashChange() {
@@ -186,9 +209,12 @@ function onHashChange() {
     var ref = methodAndRef[1] || ""; // to avoid passing "undefined" if no "-" in has;
     urlFunctions[method](ref);
   } else { // if hash is empty we want default view, remove any modals that might be open.
-    if (document.querySelector(".detail-wrapper--show")) {
+    if (document.querySelector(".edit-target-wrapper--show")) {
+      document.querySelector(".edit-target-wrapper").classList.remove("edit-target-wrapper--show");
+    }else if (document.querySelector(".detail-wrapper--show")) {
       document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
-    } else if (document.querySelector(".add-target-wrapper--show")) {
+    }
+    if (document.querySelector(".add-target-wrapper--show")) {
       document.querySelector(".add-target-wrapper").classList.remove("add-target-wrapper--show");
     }
   }
