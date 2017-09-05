@@ -293,9 +293,12 @@ form {
 
 input, select {
   height: 22px;
-  font-size: 20px
   border-radius: 4px;
+  font-size: 12px;
   width: 300px;
+  border: 0;
+  padding: 0 0 0 4px;
+  box-sizing: border-box;
 }
 
 
@@ -304,7 +307,7 @@ input, select {
 }
 
 .add-target-form__text-input--number {
-  width: 100px;
+  width: 130px;
 }
 
 .add-target-form__label {
@@ -320,7 +323,7 @@ input, select {
 }
 
 .add-target-form-set  {
-  width: 130px;
+  width: 145px;
   display: inline-block;
 }
 
