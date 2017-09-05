@@ -359,3 +359,25 @@ input, select {
 .add-target-form__button--submit {
   background-color: #8AB755;
 }
+
+.edit-target-button {
+  display: inline-block;
+  font-size: 12px;
+  padding-top: 4px;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 1px rgba(0,0,0, 0.3);
+  background-color: rgba(255,255,255, .8);
+  margin-left: 4px;
+}
+
+.edit-target-button__text {
+  display: inline-block;
+  transform: translateY(-3px);
+}
+
+.full-view-header__title {
+  font-weight: bold;
+  font-size: 22px;
+  display: inline-block;
+}
