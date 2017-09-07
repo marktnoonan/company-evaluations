@@ -163,5 +163,6 @@ var newTargetDefaults = {
     "email": "No email address entered",
     "phone": "No phone number entered"
   },
-  "notes": "No notes."
+  "notes": "No notes.",
+  "location": "unknown location"
 }

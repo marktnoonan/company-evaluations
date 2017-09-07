@@ -43,7 +43,15 @@ function populateEditForm() {
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
 
   formInputs.forEach(function (input) {
-    input.value = objectToEdit[input.name] || "";
+    if (input.name === "mainContactName") {
+      input.value = objectToEdit.targetMainContact.name;
+    } else if (input.name === "mainContactEmail") {
+      input.value = objectToEdit.targetMainContact.email;
+    } else if (input.name === "mainContactPhone") {
+      input.value = objectToEdit.targetMainContact.phone;
+    } else {
+      input.value = objectToEdit[input.name] || "";
+    }
   });
 }
 
@@ -53,10 +61,17 @@ function saveEdits(event) {
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
 
   formInputs.forEach(function (input) {
+
     if (parseInt(input.value)) {
       objectToEdit[input.name] = parseInt(input.value);
-    } else {
-      objectToEdit[input.name] = input.value || "unknown";
+    } else if (input.name === "mainContactName") {
+        objectToEdit.targetMainContact.name = input.value;
+      } else if (input.name === "mainContactEmail") {
+        objectToEdit.targetMainContact.email = input.value;
+      } else if (input.name === "mainContactPhone") {
+        objectToEdit.targetMainContact.phone - input.value;
+      } else {
+      objectToEdit[input.name] = input.value || "";
     }
   });
 
@@ -201,7 +216,7 @@ function submitTarget() {
     if (parseInt(keyAndValue[1])) {
       keyAndValue[1] = parseInt(keyAndValue[1]);
     }
-    newTarget[keyAndValue[0]] = keyAndValue[1] || "0";
+    newTarget[keyAndValue[0]] = keyAndValue[1] || "";
   });
 
   newTarget.uid = context.targets.length;
