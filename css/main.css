@@ -289,6 +289,8 @@ tbody tr:nth-child(even) {
 
 form {
   text-align: left;
+  width: 616px;
+  margin: 0 auto;
 }
 
 input, select {
@@ -312,8 +314,7 @@ input, select {
 
 .add-target-form__label {
   display: block;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
   margin-top: 11px;
 }
 
@@ -380,4 +381,14 @@ input, select {
   font-weight: bold;
   font-size: 22px;
   display: inline-block;
+}
+
+/* Media Queries */
+@media screen and (max-width: 700px) {
+    form {
+        width: 302px;
+    }
+    .add-target-form__part2 {
+     margin-left: 0;
+}
 }
