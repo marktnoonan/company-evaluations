@@ -60,9 +60,9 @@ function saveEdits(event) {
     }
   });
 
+  calculateFinancials(objectToEdit);
   processTargets();
   setHash("!maximize-" + context.nowEditing).then(function () {
-    window.scrollTo(0, 0);
     render('#list-template', '#list');
   });
 }
@@ -200,15 +200,26 @@ function addFormListeners () {
     });
 
     newTarget.uid = context.targets.length;
-    if (newTarget.lastYearEarnings && newTarget.lastYearExpenses) {
-          newTarget.lastYearProfit = newTarget.lastYearEarnings - newTarget.lastYearExpenses;
-    }
+
+    calculateFinancials(newTarget);
+    // TODO: extract these and also run them on save
 
     context.targets.push(newTarget);
     processTargets();
     setHash("");
     render('#list-template', '#list');
   });
+}
+
+function calculateFinancials(targetObject) {
+
+  if (targetObject.lastYearEarnings && targetObject.lastYearExpenses) {
+        targetObject.lastYearProfit = targetObject.lastYearEarnings - targetObject.lastYearExpenses;
+  }
+
+  if (targetObject.totalAssets && targetObject.liabilities) {
+        targetObject.debtRatio = (targetObject.liabilities / targetObject.totalAssets).toFixed(1);
+  }
 }
 
 function onHashChange() {
@@ -218,7 +229,16 @@ function onHashChange() {
     var methodAndRef = hashContent.split("-");
     var method = methodAndRef[0];
     var ref = methodAndRef[1] || ""; // to avoid passing "undefined" if no "-" in has;
-    urlFunctions[method](ref);
+
+    // checks if refreshed on the full view of a newly-added target ... we are not persisting data so it won't be there on refresh, we shouldn't load a weird empty full view
+    if (ref < context.targets.length){
+      urlFunctions[method](ref);
+      window.scrollTo(0, 0);
+
+    } else {
+      setHash("");
+    }
+
   } else { // if hash is empty we want default view, remove any modals that might be open.
 
     if (document.querySelector(".edit-target-wrapper--show")) {
