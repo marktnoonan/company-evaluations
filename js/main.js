@@ -232,6 +232,7 @@ function calculateFinancials(targetObject) {
 
   if (targetObject.lastYearEarnings && targetObject.lastYearExpenses) {
         targetObject.lastYearProfit = targetObject.lastYearEarnings - targetObject.lastYearExpenses;
+        targetObject.profitable =  targetObject.lastYearProfit > 0;
   }
 
   if (targetObject.totalAssets && targetObject.liabilities) {
