@@ -41,13 +41,13 @@ var urlFunctions = {
 function populateEditForm() {
   var objectToEdit = context.targets[context.nowEditing];
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
+
   formInputs.forEach(function (input) {
     input.value = objectToEdit[input.name] || "";
   });
 }
 
 function saveEdits() {
-  console.log("saving");
   var objectToEdit = context.targets[context.nowEditing];
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
 
@@ -57,17 +57,15 @@ function saveEdits() {
     } else {
       objectToEdit[input.name] = input.value || "unknown";
     }
-
   });
 
   processTargets();
   setHash("!maximize-" + context.nowEditing);
 }
 
-
-
 function toggleExpand(expandRef) {
   var targetElement = document.querySelector("#additional-" + expandRef);
+
   if (targetElement.classList.contains("company-list__detail--show-additional")) {
     targetElement.classList.remove("company-list__detail--show-additional");
   } else {
@@ -88,12 +86,15 @@ function render(templateSelector, destinationSelector, targetIndex) {
   var chosenTemplate = document.querySelector(templateSelector).innerHTML;
   var destination = document.querySelector(destinationSelector);
   var template = Handlebars.compile(chosenTemplate);
+
   if (targetIndex >= 0) {
     var html = template(context.processedTargets[targetIndex]);
   } else {
     var html = template(context);
   }
+
   destination.innerHTML = html;
+
   if (templateSelector === "#list-template") {
     addListeners();
   } else if (destinationSelector === "#detail-container") {
@@ -143,7 +144,6 @@ function addListeners() {
       });
   });
 
-
   maximizeButtons.forEach(function(button, i) {
     button.addEventListener("click",
       function() {
@@ -158,7 +158,6 @@ function addListeners() {
   });
 
   saveEditButton.addEventListener("click", saveEdits);
-
 }
 
 function addFormListeners () {
@@ -207,9 +206,8 @@ function addFormListeners () {
   });
 }
 
-
-
 function onHashChange() {
+
   if (window.location.hash) {
     var hashContent = window.location.hash.substring(2);
     var methodAndRef = hashContent.split("-");
@@ -217,11 +215,13 @@ function onHashChange() {
     var ref = methodAndRef[1] || ""; // to avoid passing "undefined" if no "-" in has;
     urlFunctions[method](ref);
   } else { // if hash is empty we want default view, remove any modals that might be open.
+
     if (document.querySelector(".edit-target-wrapper--show")) {
       document.querySelector(".edit-target-wrapper").classList.remove("edit-target-wrapper--show");
     }else if (document.querySelector(".detail-wrapper--show")) {
       document.querySelector(".detail-wrapper").classList.remove("detail-wrapper--show");
     }
+
     if (document.querySelector(".add-target-wrapper--show")) {
       document.querySelector(".add-target-wrapper").classList.remove("add-target-wrapper--show");
     }
