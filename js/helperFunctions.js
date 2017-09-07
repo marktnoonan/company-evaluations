@@ -38,3 +38,10 @@ function prettifyNumbers(targetObject) {
   });
   return targetObject;
 }
+
+function setHash(newHash) {
+return new Promise(function(resolve, reject) {
+  window.location.hash = newHash;
+  resolve(console.log("changed hash"));
+    });
+}

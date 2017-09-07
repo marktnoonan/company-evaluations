@@ -47,20 +47,24 @@ function populateEditForm() {
 }
 
 function saveEdits() {
+  console.log("saving");
   var objectToEdit = context.targets[context.nowEditing];
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
 
   formInputs.forEach(function (input) {
     if (parseInt(input.value)) {
       objectToEdit[input.name] = parseInt(input.value);
+    } else {
+      objectToEdit[input.name] = input.value || "unknown";
     }
-    objectToEdit[input.name] = input.value || "unknown";
+
   });
 
   processTargets();
-  window.location.hash = "";
-  render('#list-template', '#list');
+  setHash("!maximize-" + context.nowEditing);
 }
+
+
 
 function toggleExpand(expandRef) {
   var targetElement = document.querySelector("#additional-" + expandRef);
@@ -109,6 +113,7 @@ function addListeners() {
   var deleteTargetButtons = arrayFromCollection(document.querySelectorAll(".li-body__delete-button"));
   var cancelDeleteButtons = arrayFromCollection(document.querySelectorAll(".cancel-delete-button"));
   var confirmDeleteButtons = arrayFromCollection(document.querySelectorAll(".confirm-delete-button"));
+  var saveEditButton = document.querySelector("#save-edit");
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -142,14 +147,17 @@ function addListeners() {
   maximizeButtons.forEach(function(button, i) {
     button.addEventListener("click",
       function() {
-        window.location.hash = "!maximize-" + i;
+        setHash("!maximize-" + i);
+        window.scrollTo(0, 0);
       });
   });
 
   fullViewCloser.addEventListener("click", function() {
     detailWrapper.classList.remove("detail-wrapper--show");
-    window.location.hash = "";
+    setHash("");
   });
+
+  saveEditButton.addEventListener("click", saveEdits);
 
 }
 
@@ -164,12 +172,12 @@ function addFormListeners () {
 
   editCancelButton.addEventListener("click", function() {
     editTargetWrapper.classList.remove("edit-target-wrapper--show");
-    window.location.hash = "!maximize-" + context.nowEditing;
+    setHash("!maximize-" + context.nowEditing);
   });
 
   addTargetCancelButton.addEventListener("click", function() {
     addTargetWrapper.classList.remove("add-target-wrapper--show");
-    window.location.hash = "";
+    setHash("");
   });
 
   addTargetForm.addEventListener("submit", function (event) {
@@ -194,7 +202,7 @@ function addFormListeners () {
 
     context.targets.push(newTarget);
     processTargets();
-    window.location.hash = "";
+    setHash("");
     render('#list-template', '#list');
   });
 }
