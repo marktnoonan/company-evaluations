@@ -47,7 +47,8 @@ function populateEditForm() {
   });
 }
 
-function saveEdits() {
+function saveEdits(event) {
+  event.preventDefault();
   var objectToEdit = context.targets[context.nowEditing];
   var formInputs = arrayFromCollection(document.querySelector("#edit-target-form"));
 
@@ -60,7 +61,10 @@ function saveEdits() {
   });
 
   processTargets();
-  setHash("!maximize-" + context.nowEditing);
+  setHash("!maximize-" + context.nowEditing).then(function () {
+    window.scrollTo(0, 0);
+    render('#list-template', '#list');
+  });
 }
 
 function toggleExpand(expandRef) {
@@ -114,7 +118,7 @@ function addListeners() {
   var deleteTargetButtons = arrayFromCollection(document.querySelectorAll(".li-body__delete-button"));
   var cancelDeleteButtons = arrayFromCollection(document.querySelectorAll(".cancel-delete-button"));
   var confirmDeleteButtons = arrayFromCollection(document.querySelectorAll(".confirm-delete-button"));
-  var saveEditButton = document.querySelector("#save-edit");
+  var editTargetForm = document.querySelector("#edit-target-form");
 
   expandButtons.forEach(function(button, i) {
     button.addEventListener("click",
@@ -148,7 +152,6 @@ function addListeners() {
     button.addEventListener("click",
       function() {
         setHash("!maximize-" + i);
-        window.scrollTo(0, 0);
       });
   });
 
@@ -157,7 +160,9 @@ function addListeners() {
     setHash("");
   });
 
-  saveEditButton.addEventListener("click", saveEdits);
+  editTargetForm.addEventListener("submit", function (event) {
+    saveEdits(event);
+  });
 }
 
 function addFormListeners () {
