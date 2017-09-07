@@ -186,30 +186,32 @@ function addFormListeners () {
 
   addTargetForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    var formInputs = arrayFromCollection(event.target);
-    var keysAndValues = formInputs.map(function (input) {
-      return ([input.name, input.value]);
-    });
-    var newTarget = spreadObject(context.newTargetDefaults);
-
-    keysAndValues.forEach(function (keyAndValue) {
-      if (parseInt(keyAndValue[1])) {
-        keyAndValue[1] = parseInt(keyAndValue[1]);
-      }
-      newTarget[keyAndValue[0]] = keyAndValue[1] || "unknown";
-    });
-
-    newTarget.uid = context.targets.length;
-
-    calculateFinancials(newTarget);
-    // TODO: extract these and also run them on save
-
-    context.targets.push(newTarget);
-    processTargets();
-    setHash("");
-    render('#list-template', '#list');
+    submitTarget();
   });
 }
+
+function submitTarget() {
+  var formInputs = arrayFromCollection(event.target);
+  var newTarget = spreadObject(context.newTargetDefaults);
+  var keysAndValues = formInputs.map(function (input) {
+    return ([input.name, input.value]);
+  });
+
+  keysAndValues.forEach(function (keyAndValue) {
+    if (parseInt(keyAndValue[1])) {
+      keyAndValue[1] = parseInt(keyAndValue[1]);
+    }
+    newTarget[keyAndValue[0]] = keyAndValue[1] || "0";
+  });
+
+  newTarget.uid = context.targets.length;
+  calculateFinancials(newTarget);
+  context.targets.push(newTarget);
+  processTargets();
+  setHash("");
+  render('#list-template', '#list');
+}
+
 
 function calculateFinancials(targetObject) {
 

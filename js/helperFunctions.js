@@ -32,7 +32,7 @@ function prettifyNumbers(targetObject) {
     var value = targetObject[key];
     if (typeof value === "number" && key !== "uid") {
       targetObject["pretty-" + key] = numeral(value).format('(0,0)');
-    } else if (value === "unknown" && key !== "foundedYear") {
+    } else if (value === "0" && key !== "foundedYear") {
           targetObject["pretty-" + key] = "0";
     }
   });

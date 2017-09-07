@@ -7,7 +7,7 @@ var targets = [{
     "totalAssets": 10000,
     "liabilities": 40000,
     "profitable": true,
-    "debtRatio": 4,
+    "debtRatio": 4.0,
     "financialInfoSource": "Reported",
     "foundedYear": 2016,
     "location": "Atlanta, GA",
@@ -42,7 +42,7 @@ var targets = [{
     "totalAssets": 70000,
     "liabilities": 4000,
     "profitable": true,
-    "debtRatio": 0.57,
+    "debtRatio": 0.6,
     "financialInfoSource": "Audited",
     "foundedYear": 2000,
     "location": "Atlanta, GA",
@@ -77,7 +77,7 @@ var targets = [{
     "totalAssets": 600000,
     "liabilities": 2400000,
     "profitable": false,
-    "debtRatio": 4,
+    "debtRatio": 4.0,
     "financialInfoSource": "Inferred / Mixed",
     "foundedYear": 1970,
     "location": "Seattle, WA",
@@ -149,109 +149,19 @@ var newTargetDefaults = {
   "debtRatio": "Need assets and liabilities",
   "nextTask": {
     "task": "Continue research",
-    "deadline": ""
+    "deadline": "ongoing"
   },
   "lastActivity": {
     "activity": "Added to pipline",
     "date": new Date().toString().substring(0,15)
   },
-  "display": true
+  "display": true,
+  "foundedYear": "unknown year",
+  "employeeCount": 0,
+  "targetMainContact": {
+    "name": "No name entered",
+    "email": "No email address entered",
+    "phone": "No phone number entered"
+  },
+  "notes": "No notes."
 }
-
-
-/*
-EDITABLE Fields and input types
-
-These should only cover data that a human must provide, anything that can be calculated on our end should be.
-
-lets group by input type and make arrays to loop through when making the template
-
-
-"companyName": string *required
-"internalLead": string *required
-
-"targetMainContact": string name, email, phone (do basic sanity check)
-
-"notes": string.
-"location": string
-targetMainContact.name: string
-targetMainContact.email: string
-targetMainContact.phone: string
-
-"lastYearEarnings": int
-"lastYearExpenses": int
-"totalAssets": int
-"liabilities": int
-"employeeCount": int
-"foundedYear": int
-
-"status": select
-"targetPosition": select
-"urgency": select
-
-"financialInfoSource": select, with option for other
-"primaryInterest": select, with option for Other, then show string input
-
-
-so, broken into arrays
-
-{
-"requiredStrings": ["companyName","internalLead"],
-"strings": ["notes", "location", "mainContactName", "mainContactEmail", "mainContactPhone"],
-"integers": ["lastYearEarnings", "lastYearExpenses", "totalAssets", "liabilities", "employeeCount", "foundedYear"],
-"selects": ["status", "targetPosition", "urgency","financialInfoSource", "primaryInterest"]
-}
-
-for the selects, we need arrays of options. ALL will have "other" or "new item" or something
-
-{
-"status":["Researching", "Pending Approval", "Approved", "Declined"],
- "targetPosition": ["Seeking Buyers", "Not on market"],
-  "urgency": ["low", "normal", "high"],
-  "financialInfoSource": ["Reported", "Audited", "Inferred / Mixed"],
- "primaryInterest":["Product", "Employees", "Physical Assets", "Digital Assets" ]
-}
-
-
-
-Calculated fields:
-
-"lastYearProfit": int (lastYearEarnings - lastYearExpenses)
-"profitable": bool (lastYearProfit > 0?)
-"debtRatio": int (liabilities / assets)
-
-Ignored fields:
-"nextTask": user should handle elsewhere. defaults to "no scheduled tasks"
-"lastActivity": is reported by CRM. defaults to "no previous contacts"
-
-
-
-*/
-
-
-
-
-
-
-
-
-// Financials: Earnings last year, costs last year, profit or loss last year, value of assets, value of liabilities.
-//   - From this we calculate: Boolean for profitable or not. Ratio of assets to liabilities expressed as gearing/leverage.
-// Reliability of financials: Audited || Reported by company || Inferred from other information.
-//   - both of these contribute to overall impression of health of the business.
-// Basic company info: Location, when founded, number of employees, product(s) we are interested in.
-// Company info related to acquisition: important contact people, phone numbers etc. - Maybe it links to a fictional CRM for full details.
-//
-// Pipeline info
-// Status (e.g., researching, pending approval, approved, declined)
-// Maybe between researching and pending approval there is another status that contains a few points to be checked off before submission for approval?
-// Company public status: actively seeking buyers || not officially on market
-//
-// Next task: description and deadline. - expanding points to CRM. Cannot edit here. May sort by this.
-//
-// Most recent activity: description and date. - expanding points to CRM. Cannot edit here. May sort by this eventually.
-//
-// Our Main interest: product || employees || physical assets || digital assets || other
-// Our urgency: low || normal || high - totally arbitrary internal thing that might as well be there.
-//
-// Internal lead: Person who owns this from our side.
